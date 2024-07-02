@@ -20,8 +20,9 @@ import MainLayout from "./layout/MainLayout";
 // rr
 import { useSelector, useDispatch } from "react-redux";
 
-// loader
+// action
 import { action as LoginAction } from "./pages/Login";
+import { action as HomeAction } from "./pages/Home";
 import { action as RegisterAction } from "./pages/Register";
 
 // react
@@ -50,6 +51,7 @@ function App() {
         {
           index: true,
           element: <Home />,
+          action: HomeAction,
         },
         {
           path: "/about",

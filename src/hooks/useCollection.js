@@ -1,20 +1,24 @@
-import { getDocs, collection } from "firebase/firestore";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase/firebaseConfig";
 
-export const useCollection = (collectionName) => {
+export const useCollection = (collectionName, whereOptions) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const getData = async () => {
-      const querySnapshot = await getDocs(collection(db, collectionName));
-      const items = [];
-      querySnapshot.docs.forEach((doc) => {
-        items.push({ id: doc.id, ...doc.data() });
-      });
+    const q = query(collection(db, collectionName), where(...whereOptions));
 
-      setData(items);
+    const getData = async () => {
+      onSnapshot(q, (querySnapshot) => {
+        const todos = [];
+        querySnapshot.forEach((doc) => {
+          console.log(doc);
+          todos.push({ id: doc.id, ...doc.data() });
+        });
+        setData(todos);
+      });
     };
+
     getData();
   }, [collectionName]);
 

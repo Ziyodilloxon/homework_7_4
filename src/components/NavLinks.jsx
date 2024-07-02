@@ -16,19 +16,20 @@ const links = [
     text: "Contact",
     link: "/contact",
   },
-  { id: 4, text: "Dashboard", link: "/dashboard" },
 ];
 function NavLinks() {
   return (
     <>
-      {" "}
       {links.map((link) => {
         return (
-          <li key={link.id}>
+          <li
+            className="btn btn-primary text-center font-semibold color-black  "
+            key={link.id}
+          >
             <Link to={link.link}>{link.text}</Link>
           </li>
         );
-      })}{" "}
+      })}
     </>
   );
 }
